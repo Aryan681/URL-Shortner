@@ -1,0 +1,21 @@
+{
+  "dependencies": {
+    "cookie-parser": "^1.4.6",
+    "ejs": "^3.1.10",
+    "flowbite": "^2.3.0",
+    "globally": "^0.0.0",
+    "jsonwebtoken": "^9.0.2",
+    "shortid": "^2.2.16",
+    "tailwindcss": "^3.4.3",
+    "uuid": "^9.0.1"
+  },
+  "name": "urlshotner",
+  "version": "1.0.0",
+  "main": "index.js",
+  "scripts": {
+    "start": "nodemon index"
+  },
+  "author": "",
+  "license": "ISC",
+  "description": ""
+}

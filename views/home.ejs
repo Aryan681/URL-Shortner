@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>URL Shortener</title>
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+</head>
+
+<body class="bg-gradient-to-br from-purple-400 via-pink-500 to-red-500 animate-gradient">
+    <div class="container mx-auto py-8">
+        <h1 class="text-3xl font-bold text-center text-gray-800 mb-8">URL Shortener</h1>
+        <% if (locals.id) { %>
+        <div class="mx-auto max-w-lg bg-white rounded-lg shadow-lg p-6 mb-8">
+            <h2 class="text-xl font-semibold mb-4">Shortened URL</h2>
+            <div id="shortened-url" class="bg-gray-200 p-4 rounded-lg mb-4">http://localhost/url/<%=id %>
+            </div>
+            <button id="copy-btn"
+                class="block w-full bg-blue-500 hover:bg-blue-600 text-white font-bold py-2 px-4 rounded focus:outline-none focus:ring-2 focus:ring-blue-400">Copy
+                to Clipboard</button>
+        </div>
+        <% } %>
+        <div class="mx-auto max-w-lg bg-white rounded-lg shadow-lg p-6 mb-8">
+            <form method="post" action="/url">
+                <h2 class="text-xl font-semibold mb-4">Enter Your URL</h2>
+                <input type="text" name="url" placeholder="https://example.com"
+                    class="block w-full bg-gray-100 text-gray-800 rounded-md py-3 px-4 mb-4 focus:outline-none focus:ring-2 focus:ring-blue-400">
+                <button type="submit"
+                    class="block w-full bg-gradient-to-r from-[#eb3349] to-[#F45C43] text-white font-bold py-2 px-4 rounded focus:outline-none focus:ring-2 focus:ring-blue-400">Generate
+                    Shortened URL</button>
+            </form>
+        </div>
+        <div class="mx-auto max-w-4xl bg-white rounded-lg shadow-md">
+            <table class="w-full divide-y divide-gray-200">
+                <thead class="bg-gray-100">
+                    <tr>
+                        <th class="py-3 px-6 text-left text-sm font-semibold text-gray-600 uppercase">S.no</th>
+                        <th class="py-3 px-6 text-left text-sm font-semibold text-gray-600 uppercase">Shortened
+                            Url</th>
+                        <th class="py-3 px-6 text-left text-sm font-semibold text-gray-600 uppercase">Original
+                            URL</th>
+                        <th class="py-3 px-6 text-left text-sm font-semibold text-gray-600 uppercase">Clicks</th>
+                    </tr>
+                </thead>
+                <tbody class="divide-y divide-gray-200">
+                    <% if (locals.urls) { %>
+                    <% urls.forEach((url, index) => { %>
+                    <tr class="hover:bg-gray-50">
+                        <td class="py-4 px-6 text-sm text-gray-700"><%= index + 1 %></td>
+                        <td class="py-4 px-6 text-sm text-gray-700">http://localhost/url/<%= url.shortId %></td>
+                        <td class="py-4 px-6 text-sm text-gray-700"><%= url.originalUrl %></td>
+                        <td class="py-4 px-6 text-sm text-gray-700"><%= url.visitHistory.length %></td>
+                    </tr>
+                    <% }) %>
+                    <% } %>
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    <script>
+        document.getElementById('copy-btn').addEventListener('click', function () {
+            var shortenedUrl = document.getElementById('shortened-url');
+            var range = document.createRange();
+            range.selectNode(shortenedUrl);
+            window.getSelection().removeAllRanges();
+            window.getSelection().addRange(range);
+            document.execCommand('copy');
+            window.getSelection().removeAllRanges();
+        });
+    </script>
+</body>
+
+</html>
+
